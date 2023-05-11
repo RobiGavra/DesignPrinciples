@@ -6,22 +6,22 @@ namespace DesigngPrinciple
     //The Singleton design pattern ensures a class has only one instance and provide a global point of access to it.
     public class LoadBalancer
     {
-        private static LoadBalancer instance;
+        private static LoadBalancer _instance;
 
         // We now have a lock object that will be used to synchronize threads
         // during first access to the Singleton.
-        private static object locker = new object();
+        private static object _locker = new object();
 
-        List<string> servers = new List<string>();
-        Random random = new Random();
+        private List<string> _servers = new List<string>();
+        private Random _random = new Random();
 
         private LoadBalancer()
         {
-            servers.Add("ServerI");
-            servers.Add("ServerII");
-            servers.Add("ServerIII");
-            servers.Add("ServerIV");
-            servers.Add("ServerV");
+            _servers.Add("ServerI");
+            _servers.Add("ServerII");
+            _servers.Add("ServerIII");
+            _servers.Add("ServerIV");
+            _servers.Add("ServerV");
         }
         public static LoadBalancer GetLoadBalancer()
         {
@@ -29,23 +29,23 @@ namespace DesigngPrinciple
             // 'Double checked locking' pattern which (once
             // the instance exists) avoids locking each
             // time the method is invoked
-            if (instance == null)
+            if (_instance == null)
             {
                 // Now, imagine that the program has just been launched. Since
                 // there's no Singleton instance yet, multiple threads can
                 // simultaneously pass the previous conditional and reach this
                 // point almost at the same time. The first of them will acquire
                 // lock and will proceed further, while the rest will wait here.
-                lock (locker)
+                lock (_locker)
                 {
-                    if (instance == null)
+                    if (_instance == null)
                     {
-                        instance = new LoadBalancer();
+                        _instance = new LoadBalancer();
                         Console.WriteLine("singleton instantiated");
                     }
                 }
             }
-            return instance;
+            return _instance;
         }
 
         //random load balancer
@@ -53,8 +53,8 @@ namespace DesigngPrinciple
         {
             get
             {
-                int r = random.Next(servers.Count);
-                return servers[r].ToString();
+                int r = _random.Next(_servers.Count);
+                return _servers[r].ToString();
             }
         }
     }

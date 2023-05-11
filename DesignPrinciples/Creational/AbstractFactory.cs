@@ -28,6 +28,7 @@ namespace DesigngPrinciple.Creational
         {
             return new ThreeSeries();
         }
+
         public override Coupe BuildCoupe()
         {
             return new M2();
@@ -52,9 +53,9 @@ namespace DesigngPrinciple.Creational
 
     public class M2 : Coupe
     {
-        public override void DragRace(Sedan s)
+        public override void DragRace(Sedan Sedan)
         {
-            Console.WriteLine(this.GetType().Name + " goes faster than " + s.GetType().Name);
+            Console.WriteLine(this.GetType().Name + " goes faster than " + Sedan.GetType().Name);
         }
     }
 
@@ -62,9 +63,9 @@ namespace DesigngPrinciple.Creational
 
     public class Mustang : Coupe
     {
-        public override void DragRace(Sedan s)
+        public override void DragRace(Sedan Sedan)
         {
-            Console.WriteLine(this.GetType().Name + " goes faster than " + s.GetType().Name);
+            Console.WriteLine(this.GetType().Name + " goes faster than " + Sedan.GetType().Name);
         }
     }
 
@@ -80,9 +81,6 @@ namespace DesigngPrinciple.Creational
             _sedan = factory.BuildSedan();
         }
 
-        public void RunFoodChain()
-        {
-            _coupe.DragRace(_sedan);
-        }
+        public void RunFoodChain() { _coupe.DragRace(_sedan); }
     }
 }

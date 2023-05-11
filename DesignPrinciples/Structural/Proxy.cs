@@ -24,14 +24,14 @@
     //Proxy
     public class MathProxy : IMath
     {
-        private Math math = new Math();
+        private Math Math = new Math();
 
-        public double Add(double x, double y) { return math.Add(x, y); }
+        public double Add(double x, double y) { return Math.Add(x, y); }
 
-        public double Sub(double x, double y) { return math.Sub(x, y); }
+        public double Sub(double x, double y) { return Math.Sub(x, y); }
 
-        public double Mul(double x, double y) { return math.Mul(x, y); }
+        public double Mul(double x, double y) { return Math.Mul(x, y); }
 
-        public double Div(double x, double y) { return math.Div(x, y); }
+        public double Div(double x, double y) { return Math.Div(x, y); }
     }
 }

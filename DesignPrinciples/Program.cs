@@ -9,7 +9,7 @@ namespace DesigngPrinciple
     {
         static void Main(string[] args)
         {
-            AbstractFactory();
+            Observer();
 
             Console.ReadKey();
         }
@@ -25,9 +25,7 @@ namespace DesigngPrinciple
 
             // Same instance?
             if (b1 == b2 && b2 == b3 && b3 == b4)
-            {
                 Console.WriteLine("Same instance\n");
-            }
 
             LoadBalancer balancer = LoadBalancer.GetLoadBalancer();
             for (int i = 0; i < 5; i++)
@@ -52,41 +50,52 @@ namespace DesigngPrinciple
         //These patterns explain how to assemble objects and classes into larger structures while keeping these structures flexible and efficient.
         static void Proxy()
         {
-            MathProxy proxy = new MathProxy();
+            MathProxy Proxy = new MathProxy();
 
-            Console.WriteLine("4 + 2 = " + proxy.Add(4, 2));
-            Console.WriteLine("4 - 2 = " + proxy.Sub(4, 2));
-            Console.WriteLine("4 * 2 = " + proxy.Mul(4, 2));
-            Console.WriteLine("4 / 2 = " + proxy.Div(4, 2));
+            Console.WriteLine("4 + 2 = " + Proxy.Add(4, 2));
+            Console.WriteLine("4 - 2 = " + Proxy.Sub(4, 2));
+            Console.WriteLine("4 * 2 = " + Proxy.Mul(4, 2));
+            Console.WriteLine("4 / 2 = " + Proxy.Div(4, 2));
         }
 
         //Behavioral patterns
         //These patterns are concerned with algorithms and the assignment of responsibilities between objects.
         static void Mediator()
         {
-            ConcreteTrafficLight light = new ConcreteTrafficLight();
+            ConcreteTrafficLight Light = new ConcreteTrafficLight();
 
-            Mercedes merc = new Mercedes(light);
-            AlfaRomeo alfa = new AlfaRomeo(light);
+            Mercedes Merc = new Mercedes(Light);
+            AlfaRomeo Alfa = new AlfaRomeo(Light);
 
-            light.Mercedes = merc;
-            light.AlfaRomeo = alfa;
+            Light.Mercedes = Merc;
+            Light.AlfaRomeo = Alfa;
 
-            merc.Start();
-            alfa.Start();
+            Merc.Start();
+            Alfa.Start();
         }
 
         static void ChainOfResponsibility()
         {
-            Approver tilica = new TeamLead();
-            Approver samantar = new Manager();
-            Approver elPatron = new Boss();
+            Approver Tilica = new TeamLead();
+            Approver Samantar = new Manager();
+            Approver ElPatron = new Boss();
 
-            tilica.SetSuccessor(samantar);
-            samantar.SetSuccessor(elPatron);
+            Tilica.SetSuccessor(Samantar);
+            Samantar.SetSuccessor(ElPatron);
 
-            SalaryIncreaseRequest p = new SalaryIncreaseRequest(500.00);
-            tilica.ProcessRequest(p);
+            SalaryIncreaseRequest Request = new SalaryIncreaseRequest(500.00);
+            Tilica.ProcessRequest(Request);
+        }
+
+        static void Observer()
+        {
+            // Create casino and attach investors
+            Casino RedSeven = new RedSeven();
+
+            RedSeven.Attach(new Investor("Petrica"));
+            RedSeven.Attach(new Investor("Traian"));
+
+            RedSeven.Notify();
         }
     }
 }

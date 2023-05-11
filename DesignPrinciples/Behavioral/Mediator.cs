@@ -13,16 +13,15 @@ namespace DesignPrinciples.Behavioral
     //ConcreteMediator
     public class ConcreteTrafficLight : TrafficLight
     {
-        Mercedes merc;
-        AlfaRomeo alfa;
+        private Mercedes _merc;
+        private AlfaRomeo _alfa;
 
-        public Mercedes Mercedes { set { merc = value; } }
-
-        public AlfaRomeo AlfaRomeo { set { alfa = value; } }
+        public Mercedes Mercedes { set { _merc = value; } }
+        public AlfaRomeo AlfaRomeo { set { _alfa = value; } }
 
         public override void TurnOnGreen()
         {
-            if (alfa.Power > merc.Power)
+            if (_alfa.Power > _merc.Power)
                 Console.WriteLine("AlfaRomeo starts with a burnout");
             else
                 Console.WriteLine("Mercedes can't start with a burnout");
@@ -32,9 +31,9 @@ namespace DesignPrinciples.Behavioral
     //Colleague classes
     public abstract class Car
     {
-        protected TrafficLight light;
+        protected TrafficLight Light;
 
-        public Car(TrafficLight mediator) { this.light = mediator; }
+        public Car(TrafficLight Mediator) { this.Light = Mediator; }
     }
 
     public class Mercedes : Car
@@ -43,10 +42,7 @@ namespace DesignPrinciples.Behavioral
 
         public Mercedes(TrafficLight mediator) : base(mediator) { }
 
-        public void Start()
-        {
-            this.light.TurnOnGreen();
-        }
+        public void Start() { this.Light.TurnOnGreen(); }
     }
 
     public class AlfaRomeo : Car
@@ -55,9 +51,6 @@ namespace DesignPrinciples.Behavioral
 
         public AlfaRomeo(TrafficLight mediator) : base(mediator) { }
 
-        public void Start()
-        {
-            this.light.TurnOnGreen();
-        }
+        public void Start() { this.Light.TurnOnGreen(); }
     }
 }
