@@ -6,85 +6,83 @@ namespace DesigngPrinciple.Creational
     //related or dependent objects without specifying their concrete classes
 
     //AbstractFactory - declares an interface for operations that create abstract products
-    public abstract class ContinentFactory
+    public abstract class CarFactory
     {
-        public abstract Herbivore CreateHerbivore();
-        public abstract Carnivore CreateCarnivore();
+        public abstract Sedan BuildSedan();
+
+        public abstract Coupe BuildCoupe();
     }
 
     //AbstractProduct - declares an interface for a type of product object
-    public abstract class Herbivore { }
+    public abstract class Sedan { }
 
-    public abstract class Carnivore
+    public abstract class Coupe
     {
-        public abstract void Eat(Herbivore h);
+        public abstract void DragRace(Sedan s);
     }
 
     //ConcreteFactory - implements the operations to create concrete product objects
-    public class AfricaFactory : ContinentFactory
+    public class BMW : CarFactory
     {
-        public override Herbivore CreateHerbivore()
+        public override Sedan BuildSedan()
         {
-            return new Wildebeest();
+            return new ThreeSeries();
         }
-        public override Carnivore CreateCarnivore()
+        public override Coupe BuildCoupe()
         {
-            return new Lion();
+            return new M2();
         }
     }
 
-    public class AmericaFactory : ContinentFactory
+    public class Ford : CarFactory
     {
-        public override Herbivore CreateHerbivore()
+        public override Sedan BuildSedan()
         {
-            return new Bison();
+            return new Mondeo();
         }
-        public override Carnivore CreateCarnivore()
+        public override Coupe BuildCoupe()
         {
-            return new Wolf();
+            return new Mustang();
         }
     }
 
     //Product - defines a product object to be created by the corresponding concrete factory
     //implements the AbstractProduct interface
-    public class Wildebeest : Herbivore { }
+    public class ThreeSeries : Sedan { }
 
-    public class Lion : Carnivore
+    public class M2 : Coupe
     {
-        public override void Eat(Herbivore h)
+        public override void DragRace(Sedan s)
         {
-            // Eat Wildebeest
-            Console.WriteLine(this.GetType().Name +
-              " eats " + h.GetType().Name);
+            Console.WriteLine(this.GetType().Name + " goes faster than " + s.GetType().Name);
         }
     }
 
-    public class Bison : Herbivore { }
+    public class Mondeo : Sedan { }
 
-    public class Wolf : Carnivore
+    public class Mustang : Coupe
     {
-        public override void Eat(Herbivore h)
+        public override void DragRace(Sedan s)
         {
-            // Eat Bison
-            Console.WriteLine(this.GetType().Name +
-              " eats " + h.GetType().Name);
+            Console.WriteLine(this.GetType().Name + " goes faster than " + s.GetType().Name);
         }
     }
 
     //Client - uses interfaces declared by AbstractFactory and AbstractProduct classes
-    public class AnimalWorld
+    public class NFS
     {
-        private Herbivore _herbivore;
-        private Carnivore _carnivore;
+        private Sedan _sedan;
+        private Coupe _coupe;
 
-        public AnimalWorld(ContinentFactory factory)
+        public NFS(CarFactory factory)
         {
-            _carnivore = factory.CreateCarnivore();
-            _herbivore = factory.CreateHerbivore();
+            _coupe = factory.BuildCoupe();
+            _sedan = factory.BuildSedan();
         }
+
         public void RunFoodChain()
         {
-            _carnivore.Eat(_herbivore);
+            _coupe.DragRace(_sedan);
         }
     }
 }
