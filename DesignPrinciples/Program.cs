@@ -1,4 +1,5 @@
 ﻿using DesigngPrinciple.Creational;
+using DesignPrinciples.Structural;
 using System;
 
 namespace DesigngPrinciple
@@ -7,11 +8,13 @@ namespace DesigngPrinciple
     {
         static void Main(string[] args)
         {
-            AbstractFactory();
+            Proxy();
 
             Console.ReadKey();
         }
 
+
+        //These patterns provide various object creation mechanisms, which increase flexibility and reuse of existing code.
         static void Singleton()
         {
             LoadBalancer b1 = LoadBalancer.GetLoadBalancer();
@@ -42,6 +45,17 @@ namespace DesigngPrinciple
             ContinentFactory america = new AmericaFactory();
             world = new AnimalWorld(america);
             world.RunFoodChain();
+        }
+
+        //These patterns explain how to assemble objects and classes into larger structures while keeping these structures flexible and efficient.
+        static void Proxy()
+        {
+            MathProxy proxy = new MathProxy();
+
+            Console.WriteLine("4 + 2 = " + proxy.Add(4, 2));
+            Console.WriteLine("4 - 2 = " + proxy.Sub(4, 2));
+            Console.WriteLine("4 * 2 = " + proxy.Mul(4, 2));
+            Console.WriteLine("4 / 2 = " + proxy.Div(4, 2));
         }
     }
 }
